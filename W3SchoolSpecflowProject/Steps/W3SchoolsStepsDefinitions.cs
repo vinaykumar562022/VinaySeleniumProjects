@@ -22,11 +22,16 @@ namespace W3SchoolSpecflowProject.Steps
             this.registrationPage = _registrationPage;
             this.loginPage = _loginPage;
             this.driver = _driver;
-            scenarioContext.Set<bool>(false, "Screenshot");
+            //scenarioContext.Set<bool>(false, "Screenshot");
             _scenarioContext.Set<bool>(true, "Screenshot");
 
         }
 
+        [Given(@"I have an empty shopping cart")]
+        public void GivenIHaveAnEmptyShoppingCart()
+        {
+            //ScenarioContext.Current.Pending();
+        }
 
 
         [Given(@"a user is on the registration page\.")]
@@ -35,7 +40,7 @@ namespace W3SchoolSpecflowProject.Steps
             
             //ScenarioContext.Current.Pending();
             registrationPage.NavigateToRegistrationPage();
-            _scenarioContext.Set<bool>(false, "Screenshot");
+            //_scenarioContext.Set<bool>(false, "Screenshot");
         }
 
         [When(@"the user enters valid registration details with Username as ""(.*)"" and Password as ""(.*)""")]
@@ -48,6 +53,7 @@ namespace W3SchoolSpecflowProject.Steps
         [When(@"Enter details with FistName as ""(.*)"" and LastName as ""(.*)""")]
         public void WhenEnterDetailsWithFistNameAsAndLastNameAs(string fistName, string lastName)
         {
+            
             registrationPage.EnterFirstLastnameAndContiue(fistName, lastName);
         }
 
@@ -64,6 +70,7 @@ namespace W3SchoolSpecflowProject.Steps
             registrationPage.EnterRegistrationDetails(email: Usermail, password: Pwd);
             registrationPage.SubmitRegistrationForm();
             _scenarioContext.Set<bool>(true, "Screenshot");
+            
         }
 
 

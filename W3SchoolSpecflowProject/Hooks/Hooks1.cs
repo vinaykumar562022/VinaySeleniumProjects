@@ -58,15 +58,30 @@ namespace W3SchoolSpecflowProject.Hooks
         {
             Console.WriteLine("after Feature");
         }
+        
         [BeforeScenario]
         public void BeforeScedrivernario(ScenarioContext scenarioContext)
         {
             //TODO: implement logic that has to run before executing each scenario
+            //ChromeOptions chromeOptions = new ChromeOptions();
+            //chromeOptions.AddArgument("");
+            
+
             RegistrationPage = new RegistrationPage(new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)));
 
             _objectContainer.RegisterInstanceAs<IWebDriver>(RegistrationPage.Driver);
             _scenario = _feature.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
         }
+
+        //[BeforeScenario("tc", Order = 1)]
+        //public void BeforeScedrivernario2(ScenarioContext scenarioContext)
+        //{
+        //    //TODO: implement logic that has to run before executing each scenario
+        //    RegistrationPage = new RegistrationPage(new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)));
+
+        //    _objectContainer.RegisterInstanceAs<IWebDriver>(RegistrationPage.Driver);
+        //    _scenario = _feature.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
+        //}
 
         [AfterStep]
         public void AfterStep(ScenarioContext scenarioContext)

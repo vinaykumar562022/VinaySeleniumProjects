@@ -57,7 +57,7 @@ namespace W3SchoolSpecflowProject.POM
         private IWebElement DuplicationUserErrorMsg_Text;
         private string DuplicationUserErrorMsg= "//*[@class='EmailInput_email_error__IJxXf']";
 
-        [FindsBy(How = How.XPath, Using = "//*[@class='EmailInput_email_error__IJxXf']")]
+        [FindsBy(How = How.XPath, Using = "//*[@class='EmailInput_email_error__IJxXf']")]        
         private IWebElement EmailErrorMsg_Text;
         private string emailErrorMsg="//*[@class='EmailInput_email_error__IJxXf']";
 
@@ -93,20 +93,34 @@ namespace W3SchoolSpecflowProject.POM
             waitForElementtoExist(driver, By.XPath(DuplicationUserErrorMsg), 30);
 
             waitForElementtoVisible(driver, By.XPath(DuplicationUserErrorMsg), 30);
-
-            //IWebElement _errorMsg = driver.FindElement(By.XPath(DuplicationUserErrorMsg));
+            //SelectElement select = new SelectElement(Conintue_Button);
+            
+            //IWebElement errorMsg = driver.FindElement(By.XPath(DuplicationUserErrorMsg));
             DuplicationUserErrorMsg_Text.Text.ToString().Should().Contain(ErrorMsg);// "already have a user");
         }
 
         // Implement methods to interact with registration page elements
         public void NavigateToRegistrationPage()
         {
+
+            driver.Navigate().GoToUrl("https://mdbootstrap.com/docs/b4/jquery/tables/scroll/");
+
+            var jsToBeExecuted2 = $"window.scroll(0, 3050);";
+            Thread.Sleep(2000);
+            ((IJavaScriptExecutor)driver).ExecuteScript(jsToBeExecuted2);
+
+            IWebElement tableElement = driver.FindElement(By.XPath("//*[@class='dataTables_scrollBody' and @xpath='1']"));
+            // Scroll left by 300 pixels (adjust as needed)
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollLeft += 300;", tableElement);
+
+
             // Implementation to navigate to the registration page
             driver.Navigate().GoToUrl(RegistrationPageUrl);
             driver.Manage().Window.Maximize();
             waitForElementtoExist(driver, By.XPath(PreSignUpButton), 30);
-            //IWebElement _signupButton= driver.FindElement(By.XPath("//*[@class='top-section']//*[@id='signUpFromSignup']"));
-            PreSignUp_Button.Click();
+            IWebElement _signupButton= driver.FindElement(By.XPath(PreSignUpButton));
+            //PreSignUp_Button.Click();
+            _signupButton.Click();
             Thread.Sleep(5000);
 
         }
@@ -123,7 +137,7 @@ namespace W3SchoolSpecflowProject.POM
             //IWebElement _pwd = driver.FindElement(By.XPath(Pwd));
             UserName_TextBox.SendKeys(email);
             PassWord_TextBox.SendKeys(password);
-
+            //string stt=driver.WindowHandles;
             
         }
 
@@ -136,6 +150,7 @@ namespace W3SchoolSpecflowProject.POM
 
             //IWebElement signUp_Button = driver.FindElement(By.XPath(signUpButton));
             SignUp_Button.Click();
+            Thread.Sleep(5000);
         }
         public void EnterFirstLastnameAndContiue(string first_Name,string last_Name)
         {
@@ -145,6 +160,7 @@ namespace W3SchoolSpecflowProject.POM
 
             FirstName_TextBox.SendKeys(first_Name);
             LastName_TextBox.SendKeys(last_Name);
+            Thread.Sleep(5000);
 
             waitForElementtoExist(driver, By.XPath(ConintueButton), 30);
             waitForElementClickable(driver, By.XPath(ConintueButton), 30);
